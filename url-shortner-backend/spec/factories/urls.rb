@@ -4,5 +4,9 @@ FactoryBot.define do
     shortened_url { "shorty.li/1" }
     click { 0 }
     title { "facebook" }
+
+    trait :invalid do
+      original_url {nil}
+    end
   end
 end

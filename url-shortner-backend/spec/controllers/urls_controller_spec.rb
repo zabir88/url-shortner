@@ -25,63 +25,45 @@ require 'rails_helper'
 
 RSpec.describe Api::V1::UrlsController, type: :controller do
 
-  # This should return the minimal set of attributes required to create a valid
-  # Url. As you add validations to Url, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
-
-  # This should return the minimal set of values that should be in the session
-  # in order to pass any filters (e.g. authentication) defined in
-  # UrlsController. Be sure to keep this updated too.
-  let(:valid_session) { {} }
-
-  describe "GET #index" do
-    it "returns a success response" do
-      url = Url.create! valid_attributes
-      get :index, params: {}, session: valid_session
+   describe "GET /api/v1/urls" do
+    it "returns 100 most clicked urls" do
+      get api_v1_urls_path
       expect(response).to be_successful
     end
   end
 
-  describe "GET #show" do
-    it "returns a success response" do
-      url = Url.create! valid_attributes
-      get :show, params: {id: url.to_param}, session: valid_session
-      expect(response).to be_successful
-    end
+  describe "GET /api/v1/urls/:id" do 
+    
   end
 
-  
-  describe "POST #create" do
+  describe "POST /api/v1/urls" do
+    before do 
+      @url = FactoryBot.create(:url)
+    end
+    
     context "with valid params" do
-      it "creates a new Url" do
+      it "creates a new url" do
+        url_params = FactoryBot.attributes_for(:url)
         expect {
-          post :create, params: {url: valid_attributes}, session: valid_session
+          post api_v1_urls_path, params: {url: url_params}
         }.to change(Url, :count).by(1)
       end
-
       it "renders a JSON response with the new url" do
-
-        post :create, params: {url: valid_attributes}, session: valid_session
-        expect(response).to have_http_status(:created)
+        url_params = FactoryBot.attributes_for(:url)
+        post api_v1_urls_path, params: {url: url_params}
+        expect(response).to have_http_status(:success)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(url_url(Url.last))
       end
     end
 
     context "with invalid params" do
       it "renders a JSON response with errors for the new url" do
-
-        post :create, params: {url: invalid_attributes}, session: valid_session
+        url_params = FactoryBot.attributes_for(:url, :invalid)
+        post api_v1_urls_path, params: {url: url_params}
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
     end
   end
+
 end
