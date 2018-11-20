@@ -33,11 +33,11 @@ $ rails db:migrate
 ```
 6. To setup delayed_job run
 ```
-rails generate delayed_job:active_record
+$ rails generate delayed_job:active_record
 ```
 7. Delayed Job works with postgresql database. To setup the table run
 ```
-rails generate delayed_job:active_record
+$ rails generate delayed_job:active_record
 ```
 8. To setup figaro to store ENV varaibles run 
 ```
