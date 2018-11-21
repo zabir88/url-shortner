@@ -1,6 +1,6 @@
-# Backend(api only) Setup
+# Rails API Backend
 
-## Prerequisite
+## Prerequisites
 1. .ruby-gemset file allows one to create application specific gemset.
 2. .ruby-version file allows one to create application specific ruby version.
 3. Postgresql database is used for the api.
@@ -13,14 +13,10 @@
 10. Nokogiri is used to scrape the title of the given url.
 11. Rack Cors gem is used to allow CORS in develpoment env.
 
-## Application Setup
-
+## To run the Rails Api server in development environment follow the steps
 Assuming ruby is already installed, to setup and run the api in dev env follow the steps:
-
 1. Unzip/extract/clone the folder.
-
 2. cd into the folder. This will create a gemset named url-shortner.
-
 3. Install all gems 
 ```
 $ bundle install
@@ -60,34 +56,31 @@ $ bundle exec spring binstub rspec
 $ rails s -p 8080
 ```
 This will run the api on port 8080 since react frontend app will run on port 3000.
-
-12. To start working off jobs in the development env, open another terminal and run
+12. To start working off jobs in the development env, open another processor and run
 ```
 $ rake jobs:work
 ```
 13. Please check /config/initialzers/delayed_job_config.rb for delayed worker configurations.
 
 ## Post Data
-
 To post data to the api one can use the curl toolbox. Follow the example below:
-
 ```
 $ curl -X POST -H "Content-Type: application/json" http://localhost:3000/api/v1/urls -d '{"url": {"original_url": "https://facebook.com"}}'
 ```
 This will post a new data to the api.
 
 ## Algorithm used to generate shortened url
-
 The shortest possible length of the shortened url is genereted using the primary id of the object created in the url table. The domain is kept constant for all objects(for example 'shorty.li') and the primary id of the object is appened to the domain of the shortened url. Few example:
 
 given url 'https://facebook.com' => shortened url shorty.li/1  
 given url 'https://google.com' => shortened url shorty.li/2  
 given url 'https://yahoo.com' => shortened url shorty.li/3
-
+.
+.
+.
 and so on.
 
 ##  Improvements
-
 1. When parsing the title the entire html doc is loaded in memory thus creating memory constraint.
  
 
