@@ -20,3 +20,4 @@ $ npm start
 ## Improvements
 1. Build a better error handling process when api calls are made for example a 404 error page can be created.
 2. A new functional component can be created for the Table under the ui folder and called from the App.js file.
+3. Pagination can be added to the table to avoid loading all 100 data in memory.
