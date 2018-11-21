@@ -11,6 +11,7 @@
 8. Active_model_serializers is used to serialize the end points.
 9. Delayed_job is used for background job (Reason for chosing delayed_job over other 3rd parties background processor was because of the ease of integration with postgresql).
 10. Nokogiri is used to scrape the title of the given url.
+11. Rack Cors gem is used to allow CORS in develpoment env.
 
 ## Application Setup
 
@@ -56,8 +57,10 @@ $ bundle exec spring binstub rspec
 ```
 11. To start the sever run
 ```
-$ rails s
+$ rails s -p 8080
 ```
+This will run the api on port 8080 since react frontend app will run on port 3000.
+
 12. To start working off jobs in the development env, open another terminal and run
 ```
 $ rake jobs:work
@@ -66,7 +69,7 @@ $ rake jobs:work
 
 ## Post Data
 
-To create data to the api one can use the curl toolbox. Follow the example below:
+To post data to the api one can use the curl toolbox. Follow the example below:
 
 ```
 $ curl -X POST -H "Content-Type: application/json" http://localhost:3000/api/v1/urls -d '{"url": {"original_url": "https://facebook.com"}}'

@@ -27,13 +27,18 @@ RSpec.describe Api::V1::UrlsController, type: :controller do
 
    describe "GET /api/v1/urls" do
     it "returns 100 most clicked urls" do
-      get api_v1_urls_path
+      get :index
+      
       expect(response).to be_successful
     end
   end
 
-  describe "GET /api/v1/urls/:id" do 
-    
+  describe "PUT /api/v1/urls/:id" do 
+    it 'updates a url' do
+    end
+
+    it 'redirects to original url' do
+    end
   end
 
   describe "POST /api/v1/urls" do
@@ -45,12 +50,23 @@ RSpec.describe Api::V1::UrlsController, type: :controller do
       it "creates a new url" do
         url_params = FactoryBot.attributes_for(:url)
         expect {
-          post api_v1_urls_path, params: {url: url_params}
-        }.to change(Url, :count).by(1)
+          post :create, params: {url: url_params}
+        }.to change{ Url.count }.by(1)
       end
+
+      it "updates shortened_url attribute" do
+        url = FactoryBot.build(:url, shortened_url: "some_string")
+        expect(url.shortened_url).to eq("some_string")
+      end
+
+      it 'updates title attribute' do 
+        url = FactoryBot.build(:url, title: 'some_string')
+        expect(url.title).to eq('some_string')
+      end
+
       it "renders a JSON response with the new url" do
         url_params = FactoryBot.attributes_for(:url)
-        post api_v1_urls_path, params: {url: url_params}
+        post :create, params: {url: url_params}
         expect(response).to have_http_status(:success)
         expect(response.content_type).to eq('application/json')
       end
@@ -59,7 +75,7 @@ RSpec.describe Api::V1::UrlsController, type: :controller do
     context "with invalid params" do
       it "renders a JSON response with errors for the new url" do
         url_params = FactoryBot.attributes_for(:url, :invalid)
-        post api_v1_urls_path, params: {url: url_params}
+        post :create, params: {url: url_params}
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end

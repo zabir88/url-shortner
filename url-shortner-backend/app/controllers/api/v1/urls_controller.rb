@@ -1,7 +1,7 @@
 module Api 
   module V1
     class UrlsController < ApplicationController
-      before_action :set_url, only: [:show]
+      before_action :set_url, only: [:update]
       include ActionController::Serialization
       
       def index
@@ -9,7 +9,7 @@ module Api
         render json: @urls
       end
 
-      def show
+      def update
         @url.click += 1 # Click count is increased on every click on the sortened url.
         @url.save
         redirect_to @url.original_url
