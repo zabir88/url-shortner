@@ -92,7 +92,8 @@ given url 'https://yahoo.com' => shortened url shorty.li/3
 and so on.
 
 ##  Improvements
-1. When parsing the title the entire html doc is loaded in memory thus creating memory constraint. 
+1. When parsing the title the entire html doc is loaded in memory thus creating memory constraint.
+2. Backend form validation can be implemented instead of relying only on frontend form validation.
 
 # Front End Interface
 
