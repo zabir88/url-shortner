@@ -5,7 +5,7 @@ import Form  from './ui/Form';
 class App extends Component {
   constructor(props) {
     super(props)
-    axios.defaults.baseURL = 'http://localhost:8080';
+    axios.defaults.baseURL = 'https://shortyurl-app.herokuapp.com';
     
     this.state = {
       formInputs : {
