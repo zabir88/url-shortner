@@ -15,52 +15,55 @@
 
 ## To run the Rails Api server in development environment follow the steps
 Assuming ruby is already installed, to setup and run the api in dev env follow the steps:
-1. Unzip/extract/clone the folder.
-2. cd into the folder. This will create a gemset named url-shortner.
-3. Install all gems 
+1. cd into the url-shortner-backend folder. This will create a gemset named url-shortner.
+2. Install all gems 
 ```
 $ bundle install
 ```
-4. Create database
+3. Create database
 ```
 $ rails db:create
 ```
-5. Run migrations
+4. Run migrations
 ```
 $ rails db:migrate
 ```
-6. To setup delayed_job run
+5. To setup delayed_job run
 ```
 $ rails generate delayed_job:active_record
 ```
-7. Delayed Job works with postgresql database. To setup the table run
+6. Delayed Job works with postgresql database. To setup the table run
 ```
 $ rails db:migrate
 ```
-8. To setup figaro to store ENV varaibles run
+7. To setup figaro to store ENV varaibles run
 ```
 $ bundle exec figaro install
 ``` 
 This creates a commented config/application.yml file and adds it to your .gitignore
 
-9. To setup rspec for the unit test run
+8. To setup rspec for the unit test run
 ```
 $ rails g rspec:install
 ```
-10. To setup rspec binstub run 
+9. To setup rspec binstub run 
 ```
 $ bundle exec spring binstub rspec
 ```
-11. To start the sever run
+10. To start the sever run
 ```
 $ rails s -p 8080
 ```
 This will run the api on port 8080 since react frontend app will run on port 3000.
-12. To start working off jobs in the development env, open another processor and run
+11. To start working off jobs in the development env, open another processor and run
 ```
 $ rake jobs:work
 ```
-13. Please check /config/initialzers/delayed_job_config.rb for delayed worker configurations.
+12. Please check /config/initialzers/delayed_job_config.rb for delayed worker configurations.
+13. To run rspec test run 
+```
+$ rspec
+```
 
 ## Post Data
 To post data to the api one can use the curl toolbox. Follow the example below:
@@ -81,6 +84,5 @@ given url 'https://yahoo.com' => shortened url shorty.li/3
 and so on.
 
 ##  Improvements
-1. When parsing the title the entire html doc is loaded in memory thus creating memory constraint.
- 
+1. When parsing the title the entire html doc is loaded in memory thus creating memory constraint. 
 

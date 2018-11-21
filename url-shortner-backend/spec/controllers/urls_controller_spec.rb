@@ -34,11 +34,19 @@ RSpec.describe Api::V1::UrlsController, type: :controller do
   end
 
   describe "PUT /api/v1/urls/:id" do 
-    it 'updates a url' do
+    before do
+      @url = FactoryBot.create(:url)
     end
+    
+    # it 'updates a url' do
+    #   url_params = FactoryBot.attributes_for(:url, click: 1)
+    #   put :update, params: {id: @url.id, url: url_params}
+    #   expect(@url.click).to eq(1)
+    # end
 
-    it 'redirects to original url' do
-    end
+    # it 'redirects to original url' do
+    #   subject.should redirect_to(@url.original_url)
+    # end
   end
 
   describe "POST /api/v1/urls" do
