@@ -76,7 +76,7 @@ $ rspec
 ## Post Data
 To post data to the api one can use the curl toolbox. Follow the example below:
 ```
-$ curl -X POST -H "Content-Type: application/json" http://localhost:3000/api/v1/urls -d '{"url": {"original_url": "https://facebook.com"}}'
+$ curl -X POST -H "Content-Type: application/json" http://localhost:8080/api/v1/urls -d '{"url": {"original_url": "https://facebook.com"}}'
 ```
 This will post a new data to the api.
 
