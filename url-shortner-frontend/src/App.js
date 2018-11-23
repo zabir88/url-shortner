@@ -5,7 +5,13 @@ import Form  from './ui/Form';
 class App extends Component {
   constructor(props) {
     super(props)
-    axios.defaults.baseURL = 'https://shortyurl-app.herokuapp.com';
+    let baseURL = null;
+    if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+      baseURL = 'http://localhost:8080'
+    } else {
+      baseURL = 'https://shortyurl-app.herokuapp.com'
+    }
+    axios.defaults.baseURL = baseURL;
     
     this.state = {
       formInputs : {
@@ -79,14 +85,14 @@ class App extends Component {
       let data = {url : {original_url: this.state.formInputs.url.elementConfig.value}}
       axios.post('/api/v1/urls.json', data).then(response => {
         axios.get('/api/v1/urls.json').then(response => {
-          const updateTable = {...this.state};
-          updateTable.tableData = []
-          console.log(updateTable);
+          const updateState = {...this.state};
+          updateState.formInputs.url.elementConfig.value = '';
+          updateState.tableData = [];
           const data = response.data;
           for(let i of data) {
-            updateTable.tableData.push(i)
+            updateState.tableData.push(i)
           };     
-          this.setState({tableData: updateTable.tableData})
+          this.setState({formInputs: updateState.formInputs, tableData: updateState.tableData})
         }).catch(serverError => {
           console.log(serverError)
         })
