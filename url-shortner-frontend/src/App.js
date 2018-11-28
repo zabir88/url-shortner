@@ -65,6 +65,7 @@ class App extends Component {
     event.preventDefault();
     this.clearFormErrors();
     const pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    
     let finalFormInputs = {...this.state.formInputs}
     if(finalFormInputs['url'].elementConfig.value === '') {
       finalFormInputs['url'].errorMessage = 'cannot be empty'

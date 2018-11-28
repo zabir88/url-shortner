@@ -17,7 +17,6 @@ module Api
 
       def create
         @url = Url.new(url_params)
-
         if @url.save
           @url.update(shortened_url: @url.url_shortner)
           @url.update_title #Async Call

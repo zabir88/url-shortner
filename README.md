@@ -20,6 +20,7 @@ $ git clone https://github.com/zabir8809/url-shortner-app.git
 9. Delayed_job is used for background job (Reason for chosing delayed_job over other 3rd parties background processor was because of the ease of integration with postgresql).
 10. Nokogiri is used to scrape the title of the given url.
 11. Rack Cors gem is used to allow CORS in develpoment env.
+12. Base62 in Ruby gem is used to convert id to string with base 62 since ruby as built in support only upto base 36.
 
 ## To run the Rails Api server in development environment follow the steps
 Assuming ruby is already installed, to setup and run the api in dev env follow the steps:

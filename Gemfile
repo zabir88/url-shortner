@@ -50,4 +50,5 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
 end
-
+# Gem used to convert integer to string with base 62.s
+gem 'base62-rb'
