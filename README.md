@@ -82,7 +82,7 @@ $ curl -X POST -H "Content-Type: application/json" http://localhost:8080/api/v1/
 This will post a new data to the api.
 
 ## Algorithm used to generate shortened url
-The shortest possible length of the shortened url is genereted using the primary id of the object created in the url table. The domain is kept constant for all objects(for example 'shorty.li') and the primary id of the object is appened to the domain of the shortened url. Few example:
+The shortest possible length of the shortened url is genereted using the primary id of the object created in the url table. The domain is kept constant for all objects(for example 'shorty.li') and the primary id of the object is appened to the domain of the shortened url by converting the id to base 62 (which includes a-z,A-Z,0-9) string. Few example:
 
 given url 'https://facebook.com' => shortened url shorty.li/1  
 given url 'https://google.com' => shortened url shorty.li/2  
