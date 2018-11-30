@@ -3,6 +3,7 @@ import axios from 'axios';
 import Form from 'dynamic-ui-components/dist/Form';
 import Pagination from 'dynamic-ui-components/dist/Pagination';
 import Alert from 'dynamic-ui-components/dist/Alert';
+import Spinner from 'dynamic-ui-components/dist/Spinner';
 
 class App extends Component {
   constructor(props) {
@@ -46,12 +47,14 @@ class App extends Component {
       },
       alert: {
         show: false
-      }
+      },
+      dataLoaded: false
     }  
   }
   
   componentDidMount() {
     axios.get(`/api/v1/urls.json?page=${this.state.pagination.currentPage}`).then(response => {
+      
       // Setting number of pages in pagination
       const updatedPagination = {...this.state.pagination};
       updatedPagination.total = response.data.total
@@ -69,12 +72,18 @@ class App extends Component {
           active: j === 1 ? true : false
         }
       }
+      
       //Setting the data for the table
-      const updatedTable = this.state.tableData;
-      for(let i of response.data.urls) {
-        updatedTable.push(i)
-      };     
-      this.setState({tableData: updatedTable, pagination: updatedPagination})
+      let updatedTable = this.state.tableData;
+      if(response.data.urls.length !== 0) {
+        for(let i of response.data.urls) {
+          updatedTable.push(i)
+        };  
+      };
+       
+      //updating state    
+      this.setState({tableData: updatedTable, pagination: updatedPagination, dataLoaded: true})
+    
     }).catch(serverError => {
       console.log(serverError);
     });
@@ -93,7 +102,6 @@ class App extends Component {
     event.preventDefault();
     this.clearFormErrors();
     const pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-    
     let finalFormInputs = {...this.state.formInputs}
     if(finalFormInputs['url'].elementConfig.value === '') {
       finalFormInputs['url'].errorMessage = 'cannot be empty'
@@ -149,7 +157,7 @@ class App extends Component {
           udpatedAlert.show = true;
           
           //update state
-          this.setState({formInputs: updatedFormInputs, tableData: updatedTable, pagination: updatedPagination, alert: udpatedAlert})
+          this.setState({formInputs: updatedFormInputs, tableData: updatedTable, pagination: updatedPagination, alert: udpatedAlert, dataLoaded: true})
         }).catch(serverError => {
           console.log(serverError)
         })
@@ -204,7 +212,7 @@ class App extends Component {
       updatedPagination.links[currentLinkId].active = false;
       updatedPagination.links[nextPage].active = true;
       updatedPagination.currentPage  = nextPage;
-      this.setState({tableData: updatedTable, pagination: updatedPagination})  
+      this.setState({tableData: updatedTable, pagination: updatedPagination, dataLoaded: true})  
     }).catch(serverError => {
       console.log(serverError);
     });
@@ -215,15 +223,6 @@ class App extends Component {
   }
 
   render() {
-    let tablebodyEl = this.state.tableData.map((i,j) => {
-      return (
-        <tr key={j}>
-          <th><a id={i.id} href= '#' onClick={this.increaseClickCount.bind(this, i.original_url)}>{i.shortened_url}</a></th>
-          <th>{i.title}</th>
-        </tr>
-      )
-    })
-    
     let alert = null;
     if(this.state.alert.show) {
       alert = (
@@ -231,6 +230,57 @@ class App extends Component {
           <p>Shortened url generated!</p>
         </Alert>
       );
+    };
+
+    let table = null;
+    let pagination = null;
+    if(!this.state.dataLoaded) {
+      table = <Spinner size={3}/>;
+    }
+    else {
+      if(this.state.tableData.length === 0) {
+        table = (
+        <div class="alert alert-warning">
+          Currently there are no shortened urls.
+        </div>
+      );
+      }
+      else {
+        let tablebodyEl = this.state.tableData.map((i,j) => {
+          return (
+            <tr key={j}>
+              <th><a id={i.id} href= '#' onClick={this.increaseClickCount.bind(this, i.original_url)}>{i.shortened_url}</a></th>
+              <th>{i.title}</th>
+            </tr>
+          )
+        });
+        table = (
+          <div className='table-responsive'>
+            <table className='table table-hover table-bordered'>
+              <thead className='thead-dark'>
+                <tr>
+                  <th>Shortened Url</th>
+                  <th>Title</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tablebodyEl}
+              </tbody>
+            </table>
+          </div>
+        );
+
+        pagination = (
+          <Pagination 
+            links={this.state.pagination.links} 
+            pageChange={this.pageChangedHandler} 
+            position={'right'}  
+            perPage={this.state.pagination.perPage} 
+            currentPage= {this.state.pagination.currentPage} 
+            total={this.state.pagination.total}
+          />
+        );
+      };
     };
 
     let display = (
@@ -246,27 +296,10 @@ class App extends Component {
         <br/>
         <br/>
         <h2 className='text-center'>Top 100 Most Visited Website</h2>
-        <div className='table-responsive'>
-          <table className='table table-hover table-bordered'>
-            <thead className='thead-dark'>
-              <tr>
-                <th>Shortened Url</th>
-                <th>Title</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tablebodyEl}
-            </tbody>
-          </table>
-        </div>
-        <Pagination 
-          links={this.state.pagination.links} 
-          pageChange={this.pageChangedHandler} 
-          position={'right'}  
-          perPage={this.state.pagination.perPage} 
-          currentPage= {this.state.pagination.currentPage} 
-          total={this.state.pagination.total}
-        />
+        <br/>
+        {table}
+        {pagination}
+        
       </div>
     )
     return display
