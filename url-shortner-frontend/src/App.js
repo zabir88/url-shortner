@@ -148,8 +148,10 @@ class App extends Component {
           // Update the table
           let updatedTable = this.state.tableData;
           updatedTable = [];
-          for(let i of response.data.urls) {
-            updatedTable.push(i)
+          if(response.data.urls.length !== 0) {
+            for(let i of response.data.urls) {
+              updatedTable.push(i)
+            };
           };
           
           // show flash message
@@ -201,14 +203,18 @@ class App extends Component {
       nextPage = Number(event.target.id);
     };
     axios.get(`/api/v1/urls.json?page=${nextPage}`).then(response => {
+      // updating table
       let updatedTable = this.state.tableData;
       updatedTable = []
+      if(response.data.urls.length !== 0) {
+        for(let i of response.data.urls) {
+          updatedTable.push(i)
+        };
+      };
+
+      // updating pagination
       const updatedPagination = {...this.state.pagination};
-      updatedPagination.total = response.data.total
-      for(let i of response.data.urls) {
-        updatedTable.push(i)
-      };     
-      this.setState({tableData: updatedTable, pagination: updatedPagination})
+      updatedPagination.total = response.data.total     
       updatedPagination.links[currentLinkId].active = false;
       updatedPagination.links[nextPage].active = true;
       updatedPagination.currentPage  = nextPage;
@@ -234,53 +240,50 @@ class App extends Component {
 
     let table = null;
     let pagination = null;
-    if(!this.state.dataLoaded) {
-      table = <Spinner size={3}/>;
+    if(this.state.dataLoaded && this.state.tableData.length !== 0) {
+      let tablebodyEl = this.state.tableData.map((i,j) => {
+        return (
+          <tr key={j}>
+            <th><a id={i.id} href= '#' onClick={this.increaseClickCount.bind(this, i.original_url)}>{i.shortened_url}</a></th>
+            <th>{i.title}</th>
+          </tr>
+        )
+      });
+      table = (
+        <div className='table-responsive'>
+          <table className='table table-hover table-bordered'>
+            <thead className='thead-dark'>
+              <tr>
+                <th>Shortened Url</th>
+                <th>Title</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tablebodyEl}
+            </tbody>
+          </table>
+        </div>
+      );
+      pagination = (
+        <Pagination 
+          links={this.state.pagination.links} 
+          pageChange={this.pageChangedHandler} 
+          position={'right'}  
+          perPage={this.state.pagination.perPage} 
+          currentPage= {this.state.pagination.currentPage} 
+          total={this.state.pagination.total}
+        />
+      );
     }
-    else {
-      if(this.state.tableData.length === 0) {
-        table = (
+    else if(this.state.tableData.length === 0 && this.state.dataLoaded) {
+      table = (
         <div class="alert alert-warning">
           Currently there are no shortened urls.
         </div>
       );
-      }
-      else {
-        let tablebodyEl = this.state.tableData.map((i,j) => {
-          return (
-            <tr key={j}>
-              <th><a id={i.id} href= '#' onClick={this.increaseClickCount.bind(this, i.original_url)}>{i.shortened_url}</a></th>
-              <th>{i.title}</th>
-            </tr>
-          )
-        });
-        table = (
-          <div className='table-responsive'>
-            <table className='table table-hover table-bordered'>
-              <thead className='thead-dark'>
-                <tr>
-                  <th>Shortened Url</th>
-                  <th>Title</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tablebodyEl}
-              </tbody>
-            </table>
-          </div>
-        );
-
-        pagination = (
-          <Pagination 
-            links={this.state.pagination.links} 
-            pageChange={this.pageChangedHandler} 
-            position={'right'}  
-            perPage={this.state.pagination.perPage} 
-            currentPage= {this.state.pagination.currentPage} 
-            total={this.state.pagination.total}
-          />
-        );
-      };
+    }
+    else {
+      table = <Spinner size={3}/>;
     };
 
     let display = (
@@ -299,7 +302,6 @@ class App extends Component {
         <br/>
         {table}
         {pagination}
-        
       </div>
     )
     return display
