@@ -7,7 +7,7 @@ class Url < ApplicationRecord
   # validates :shortened_url, uniqueness: true
   validates :original_url, presence: true 
   validates :original_url, format: {with: URI::regexp(%w(http https)), message: 'Please enter a valid url.'}
-
+  
   # Url shortner algorithm
   def url_shortner
     # Slug using primary id and converting to base 62 string

@@ -2,11 +2,12 @@ module Api
   module V1
     class UrlsController < ApplicationController
       before_action :set_url, only: [:update]
-      include ActionController::Serialization
       
       def index
-        @urls = Url.order(click: :desc).first(100)
-        render json: @urls
+        per_page = 2
+        @total = Url.count
+        @urls = Url.order(click: :desc, id: :asc).paginate(:page => params[:page], :per_page => per_page)
+        render json: {total: @total, per_page: per_page, urls: @urls}
       end
 
       def update

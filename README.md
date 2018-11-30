@@ -16,7 +16,7 @@ $ git clone https://github.com/zabir8809/url-shortner-app.git
 5. Rspec and factory bot is used for unit testing (grouped under development and test env in the Gemfile).
 6. Spring-commands-rspec is used to run test suites faster if the dev server is already running.
 7. Figaro is use to store ENV variables.
-8. Active_model_serializers is used to serialize the end points.
+8. Will Paginate is used to paginate data.
 9. Delayed_job is used for background job (Reason for chosing delayed_job over other 3rd parties background processor was because of the ease of integration with postgresql).
 10. Nokogiri is used to scrape the title of the given url.
 11. Rack Cors gem is used to allow CORS in develpoment env.
@@ -84,9 +84,10 @@ This will post a new data to the api.
 ## Algorithm used to generate shortened url
 The shortest possible length of the shortened url is genereted using the primary id of the object created in the url table. The domain is kept constant for all objects(for example 'shorty.li') and the primary id of the object is appened to the domain of the shortened url by converting the id to base 62 (which includes a-z,A-Z,0-9) string. Few example:
 
-given url 'https://facebook.com' => shortened url shorty.li/1  
-given url 'https://google.com' => shortened url shorty.li/2  
-given url 'https://yahoo.com' => shortened url shorty.li/3
+given url 'https://facebook.com' => shortened url 1  
+given url 'https://google.com' => shortened url 2xl1 
+given url 'https://yahoo.com' => shortened url 3x5a
+
 .
 .
 .
@@ -94,15 +95,14 @@ and so on.
 
 ##  Improvements
 1. When parsing the title the entire html doc is loaded in memory thus creating memory constraint.
-2. Backend form validation can be implemented instead of relying only on frontend form validation.
 
 # Front End Interface
 
 ## Prerequisites
-1. axios package is used for api calls.
-2. Bootswatch(a variation of Bootstrap 4) is used for styling framework.
-3. Form validation is implemented in the front end.
-4. Dynamic form builder(copied from the open source dynamic-ui-components library myself being the author) is used to create the form.
+1. Axios library is used for api calls.
+2. Dynamic UI Components library is used to build the UI. Note: It is an open source library authored by me. for more details you can check out my repository [https://github.com/zabir8809/dynamic-ui-components](https://github.com/zabir8809/dynamic-ui-components).
+3. Bootswatch(a variation of Bootstrap 4) is used for styling framework. It is a one of the dependency for dynamic-ui-components package so no need to install it seperately.
+4. Form validation is implemented in the front end.
 
 ## To run the React front end server in development environment follow the steps
 1. cd into url-shortner-frontend folder
@@ -116,6 +116,5 @@ $ npm start
 ```
 
 ## Improvements
-1. Build a better error handling process when api calls are made for example a 404 error page can be created.
-2. A new functional component can be created for the Table under the ui folder and called from the App.js file.
-3. Pagination can be added to the table to avoid loading all 100 data in memory.
+1. Create a better error handling UI for example a 404 or 500 error page.
+1. Improve the pattern matching for url form validation.

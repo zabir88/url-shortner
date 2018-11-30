@@ -32,8 +32,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'figaro'
-gem 'active_model_serializers'
 gem 'delayed_job_active_record'
+gem 'base62-rb' # Gem used to convert integer to string with base 62.s
+gem 'will_paginate'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -50,5 +51,4 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'spring-commands-rspec'
 end
-# Gem used to convert integer to string with base 62.s
-gem 'base62-rb'
+
