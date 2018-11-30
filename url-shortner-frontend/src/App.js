@@ -101,13 +101,14 @@ class App extends Component {
     // form validations and submit data
     event.preventDefault();
     this.clearFormErrors();
-    const pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+    const pattern1 = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+    const pattern2 = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
     let finalFormInputs = {...this.state.formInputs}
     if(finalFormInputs['url'].elementConfig.value === '') {
       finalFormInputs['url'].errorMessage = 'cannot be empty'
       finalFormInputs['url'].elementConfig.className = 'form-control is-invalid';
     }
-    else if(!pattern.test(finalFormInputs['url'].elementConfig.value)) {
+    else if(!pattern1.test(finalFormInputs['url'].elementConfig.value) || !pattern2.test(finalFormInputs['url'].elementConfig.value)) {
       finalFormInputs['url'].errorMessage = 'not a valid url'
       finalFormInputs['url'].elementConfig.className = 'form-control is-invalid'; 
     }
@@ -277,7 +278,7 @@ class App extends Component {
     }
     else if(this.state.tableData.length === 0 && this.state.dataLoaded) {
       table = (
-        <div class="alert alert-warning">
+        <div className="alert alert-warning">
           Currently there are no shortened urls.
         </div>
       );

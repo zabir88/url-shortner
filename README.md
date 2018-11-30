@@ -16,7 +16,7 @@ $ git clone https://github.com/zabir8809/url-shortner-app.git
 5. Rspec and factory bot is used for unit testing (grouped under development and test env in the Gemfile).
 6. Spring-commands-rspec is used to run test suites faster if the dev server is already running.
 7. Figaro is use to store ENV variables.
-8. Will Paginate is used to paginate data.
+8. Kaminari is used to paginate data.
 9. Delayed_job is used for background job (Reason for chosing delayed_job over other 3rd parties background processor was because of the ease of integration with postgresql).
 10. Nokogiri is used to scrape the title of the given url.
 11. Rack Cors gem is used to allow CORS in develpoment env.

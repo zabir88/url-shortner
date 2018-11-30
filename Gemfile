@@ -34,8 +34,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'figaro'
 gem 'delayed_job_active_record'
 gem 'base62-rb' # Gem used to convert integer to string with base 62.s
-gem 'will_paginate'
-
+gem 'will_paginate' # For pagination
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
