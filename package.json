@@ -4,8 +4,8 @@
     "node": "6.3.1"
   },
   "scripts": {
-    "build": "cd url-shortner-frontend && npm install && npm run build && cd ..",
-    "deploy": "cp -a url-shortner-frontend/build/. public/",
-    "postinstall": "npm run build && npm run deploy && echo 'url-shortner-frontend built!'"
+    "build": "cd frontend && npm install && npm run build && cd ..",
+    "deploy": "cp -a frontend/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'frontend built!'"
   }
 }

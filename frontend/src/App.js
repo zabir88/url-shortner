@@ -8,13 +8,13 @@ import Spinner from 'dynamic-ui-components/dist/Spinner';
 class App extends Component {
   constructor(props) {
     super(props)
-    let baseURL = null;
-    if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
-      baseURL = 'http://localhost:8080'
-    } else {
-      baseURL = 'https://shortyurl-app.herokuapp.com'
-    }
-    axios.defaults.baseURL = baseURL;
+    // let baseURL = null;
+    // if(process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'test') {
+    //   baseURL = 'http://localhost:8080'
+    // } else {
+    //   baseURL = 'https://shortyurl-app.herokuapp.com'
+    // }
+    // axios.defaults.baseURL = baseURL;
     
     this.state = {
       formInputs : {
