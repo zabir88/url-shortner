@@ -19,12 +19,12 @@ $ git clone https://github.com/zabir8809/url-shortner-app.git
 8. Will Paginate is used to paginate data.
 9. Delayed_job is used for background job (Reason for chosing delayed_job over other 3rd parties background processor was because of the ease of integration with postgresql).
 10. Nokogiri is used to scrape the title of the given url.
-11. Rack Cors gem is used to allow CORS in develpoment env.
-12. Base62 in Ruby gem is used to convert id to string with base 62 since ruby as built in support only upto base 36.
+11. Base62 in Ruby gem is used to convert id to string with base 62 since ruby as built in support only upto base 36.
 
 ## To run the Rails Api server in development environment follow the steps
 Assuming ruby is already installed, to setup and run the api in dev env follow the steps:
 1. cd into the url-shortner-app folder. This will create a gemset named url-shortner.
+
 2. Install all gems 
 ```
 $ bundle install
@@ -100,7 +100,7 @@ and so on.
 
 ## Prerequisites
 1. Axios library is used for api calls.
-2. Dynamic UI Components library is used to build the UI. Note: It is an open source library authored by me. for more details you can check out my repository [https://github.com/zabir8809/dynamic-ui-components](https://github.com/zabir8809/dynamic-ui-components).
+2. Dynamic UI Components library is used to build the UI. Note: It is an open source library authored by myself. For more details you can check out my repository [https://github.com/zabir8809/dynamic-ui-components](https://github.com/zabir8809/dynamic-ui-components).
 3. Bootswatch(a variation of Bootstrap 4) is used for styling framework. It is a dependency for dynamic-ui-components package so no need to install it seperately.
 4. Form validation is implemented in the front end.
 
