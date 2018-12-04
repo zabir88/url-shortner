@@ -19,10 +19,10 @@ $ git clone https://github.com/zabir8809/url-shortner-app.git
 8. Will Paginate is used to paginate data.
 9. Delayed_job is used for background job (Reason for chosing delayed_job over other 3rd parties background processor was because of the ease of integration with postgresql).
 10. Nokogiri is used to scrape the title of the given url.
-11. Base62 in Ruby gem is used to convert id to string with base 62 since ruby as built in support only upto base 36.
+11. Base62 in Ruby gem is used to convert id to string with base 62 since ruby has built in support only upto base 36.
 
-## To run the Rails Api server in development environment follow the steps
-Assuming ruby is already installed, to setup and run the api in dev env follow the steps:
+## Running the Rails api server in development environment
+Assuming ruby and bundler is already installed, to setup the api in dev env follow the steps:
 1. cd into the url-shortner-app folder. This will create a gemset named url-shortner.
 
 2. Install all gems 
@@ -104,7 +104,8 @@ and so on.
 3. Bootswatch(a variation of Bootstrap 4) is used for styling framework. It is a dependency for dynamic-ui-components package so no need to install it seperately.
 4. Form validation is implemented in the front end.
 
-## To run the React front end server in development environment follow the steps
+## Running the React front end server in development environment
+Assuming npm and node is already installed, to setup the frontend server in dev env follow the steps:
 1. cd into url-shortner-frontend folder
 2. Install all the dependencies running
 ```
