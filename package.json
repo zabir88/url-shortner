@@ -4,7 +4,7 @@
     "node": "6.3.1"
   },
   "scripts": {
-    "build": "cd frontend && npm install && npm run build && cd ..",
+    "build": "cd frontend && npm install && rm -rf build && npm run build && cd ..",
     "deploy": "cp -a frontend/build/. public/",
     "postinstall": "npm run build && npm run deploy && echo 'frontend built!'"
   }
