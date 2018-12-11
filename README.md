@@ -1,8 +1,9 @@
 # URL Shortner Application
+A url shortner application built with rails api and [https://github.com/zabir8809/dynamic-ui-components](dynamic-ui-components) library.
 
 ## Live Demo 
 ```
-https://shortyurl-app.herokuapp.com/
+[https://shortyurl-app.herokuapp.com/](https://shortyurl-app.herokuapp.com)
 ```
 
 ## Rails API Backend
@@ -79,9 +80,11 @@ This will post a new data to the api.
 ### Algorithm used to generate shortened url
 The shortest possible length of the shortened url is genereted using the primary id of the object created in the url table. The domain is kept constant for all objects(for example 'shorty.li') and the primary id of the object is appened to the domain of the shortened url by converting the id to base 62 (which includes a-z,A-Z,0-9) string. Few example:
 
-given url 'https://facebook.com' => shortened url ```1```  
-given url 'https://google.com' => shortened url ```2xl1``` 
-given url 'https://yahoo.com' => shortened url ```3x5a```
+given url 'https://facebook.com' => shortened url `1` 
+
+given url 'https://google.com' => shortened url `2xl1` 
+
+given url 'https://yahoo.com' => shortened url `3x5a`
 
 ...and so on.
 
