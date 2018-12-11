@@ -1,10 +1,10 @@
 # URL Shortner Application
-A url shortner application built with rails api and [https://github.com/zabir8809/dynamic-ui-components](dynamic-ui-components) library.
+A url shortner application built with rails api and [dynamic-ui-components](https://github.com/zabir8809/dynamic-ui-components) library.
 
 ## Live Demo 
-```
+
 [https://shortyurl-app.herokuapp.com/](https://shortyurl-app.herokuapp.com)
-```
+
 
 ## Rails API Backend
 ### Prerequisites
@@ -94,7 +94,7 @@ given url 'https://yahoo.com' => shortened url `3x5a`
 ## Front End Interface
 ### Prerequisites
 1. Axios library is used for api calls.
-2. Dynamic UI Components library is used to build the UI. Note: It is an open source library authored by myself. For more details you can check out my repository [https://github.com/zabir8809/dynamic-ui-components](https://github.com/zabir8809/dynamic-ui-components).
+2. Dynamic UI Components library is used to build the UI. Note: It is an open source library authored by myself. For more details you can check out my repository [dynamic-ui-components](https://github.com/zabir8809/dynamic-ui-components).
 3. Bootswatch(a variation of Bootstrap 4) is used for styling framework. It is a dependency for dynamic-ui-components package so no need to install it seperately.
 4. Form validation is implemented in the front end.
 
